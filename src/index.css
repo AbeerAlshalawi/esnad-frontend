@@ -2,8 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .tajwal {
+    @apply font-tajwal;
+  }
+}
+
 html,
 body {
   height: 100%;
   margin: 0;
+  @apply tajwal;
 }
