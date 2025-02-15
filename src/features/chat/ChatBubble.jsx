@@ -6,8 +6,8 @@ import user from "../assets/user.svg";
 // eslint-disable-next-line react/prop-types
 export default function ChatBubble({ isBot, title, message }) {
   const bubbleClassName = isBot
-    ? "flex flex-row"
-    : "flex flex-row-reverse rtl:space-x-reverse";
+    ? "flex flex-row-reverse rtl:space-x-reverse"
+    : "flex flex-row";
 
   return (
     <div className={`items-start ${bubbleClassName}`}>
