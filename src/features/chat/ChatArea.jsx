@@ -1,44 +1,82 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ChatBubble from "./ChatBubble";
 import ChatInput from "./ChatInput";
-import { useSendMessage } from "../features/chat/useSendMessage";
-import { useLocation } from "react-router-dom";
+import { useSendMessage } from "./useSendMessage";
+import { useNavigate, useParams } from "react-router-dom";
+import { useNewChat } from "./useNewChat";
+import { useGetMessages } from "./useGetMessages";
+import { useQueryClient } from "@tanstack/react-query";
+import { useChat } from "../../context/useChat";
 
 /* eslint-disable react/prop-types */
 export default function ChatArea() {
-  // eslint-disable-next-line no-unused-vars
-  const [messages, setMessages] = useState([]);
-  const [chatId, setChatId] = useState(null);
+  const { chatId } = useParams();
+  const { messages, isLoadingMessages } = useGetMessages(chatId);
+  const { setActiveChat } = useChat();
 
-  const { sendMessage, isLoading } = useSendMessage((chat) => {
+  const queryClient = useQueryClient();
+
+  const { newChat } = useNewChat();
+  const navigate = useNavigate();
+
+  const { sendMessage, isPending } = useSendMessage((chat) => {
     const { createdChatId, answer, chatName } = chat;
 
     if (!chatId) {
-      setChatId(createdChatId);
+      const chat = {
+        id: createdChatId,
+        title: chatName,
+      };
+
+      setActiveChat(chat);
+      newChat(chat);
+
+      navigate("/chat/" + createdChatId);
     }
 
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { isBot: false, message: chat.query },
-      { isBot: true, message: answer },
+    queryClient.setQueryData(["messages", chatId], (oldMessages = []) => [
+      ...oldMessages,
+      { isBot: true, content: answer },
     ]);
   });
 
   function handleSendMessage(content) {
+    queryClient.setQueryData(["messages", chatId], (oldMessages = []) => [
+      ...oldMessages,
+      { isBot: false, content },
+    ]);
+
     sendMessage({ chatId, content });
   }
+
+  const endOfMessagesRef = useRef(null);
+
+  useEffect(() => {
+    if (endOfMessagesRef.current) {
+      endOfMessagesRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
   return (
     <div>
       <ul className="mx-auto flex h-full w-full max-w-4xl flex-col">
         <li className="flex flex-grow flex-col space-y-4 p-4">
-          {messages.length == 0 && (
+          {!messages ? (
             <ChatBubble isBot message="مرحبًا! كيف يمكنني مساعدتك اليوم؟" />
+          ) : (
+            <>
+              {messages.map((msg, index) => (
+                <ChatBubble
+                  key={index}
+                  isBot={msg.isBot}
+                  message={msg.content}
+                />
+              ))}
+              {isPending && <ChatBubble isLoading={true} isBot={true} />}
+            </>
           )}
-          {messages.map((msg, index) => (
-            <ChatBubble key={index} isBot={msg.isBot} message={msg.message} />
-          ))}
+          <div ref={endOfMessagesRef} />
         </li>
       </ul>
       <ChatInput onSend={handleSendMessage} />

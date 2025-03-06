@@ -1,10 +1,10 @@
 import Avatar from "./Avatar";
 import BubbleContent from "./BubbleContent";
-import sparkle from "../assets/sparkle.svg";
-import user from "../assets/user.svg";
+import sparkle from "../../assets/sparkle.svg";
+import user from "../../assets/user.svg";
 
 // eslint-disable-next-line react/prop-types
-export default function ChatBubble({ isBot, title, message }) {
+export default function ChatBubble({ isLoading, isBot, message }) {
   const bubbleClassName = isBot
     ? "flex flex-row-reverse rtl:space-x-reverse"
     : "flex flex-row";
@@ -12,8 +12,7 @@ export default function ChatBubble({ isBot, title, message }) {
   return (
     <div className={`items-start ${bubbleClassName}`}>
       <Avatar src={isBot ? sparkle : user} />
-
-      <BubbleContent title={title} message={message} />
+      <BubbleContent isLoading={isLoading} message={message} />
     </div>
   );
 }

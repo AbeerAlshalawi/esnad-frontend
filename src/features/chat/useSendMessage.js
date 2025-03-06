@@ -3,7 +3,7 @@ import { sendMessage as sendMessageApi } from "../../services/apiChat";
 import { toast } from "react-hot-toast";
 
 export function useSendMessage(onSuccess) {
-  const { mutate: sendMessage, isLoading } = useMutation({
+  const { mutate: sendMessage, isPending } = useMutation({
     mutationFn: sendMessageApi,
     onSuccess,
     onError: (error) => {
@@ -12,5 +12,5 @@ export function useSendMessage(onSuccess) {
     },
   });
 
-  return { sendMessage, isLoading };
+  return { sendMessage, isPending };
 }

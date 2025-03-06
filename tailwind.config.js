@@ -3,7 +3,8 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     fontFamily: {
-      tajwal: "Tajawal",
+      baloo: "Baloo Bhaijaan 2",
+      noto: "Noto Sans Arabic",
     },
     extend: {
       colors: {
@@ -12,6 +13,9 @@ export default {
         bg: "#FBFFFE",
         placeholderText: "#475569",
         border: "#EBEBEB",
+      },
+      animation: {
+        bounce: "bounce 0.5s infinite",
       },
     },
   },

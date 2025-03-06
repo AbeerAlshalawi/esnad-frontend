@@ -1,6 +1,7 @@
 import { useUser } from "../features/auth/useUser";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import LoadingSpinner from "./LoadingSpinner";
 
 // eslint-disable-next-line react/prop-types
 function ProtectedRoute() {
@@ -16,11 +17,7 @@ function ProtectedRoute() {
   );
 
   if (isLoading)
-    return (
-      <div>
-        <h1>LOADING...</h1>
-      </div>
-    );
+    return <LoadingSpinner size={16} fullPage={true}></LoadingSpinner>;
 
   if (isAuthenticated) return <Outlet></Outlet>;
 

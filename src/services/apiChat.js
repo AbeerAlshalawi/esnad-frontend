@@ -4,7 +4,6 @@ const CHAT_ENDPOINT = "chats";
 const MESSAGE_ENDPOINT = "messages";
 
 export async function sendMessage({ chatId, content }) {
-  console.log("chat id: ", chatId);
   try {
     const response = await apiClient.post(
       `${MESSAGE_ENDPOINT}/${chatId ? chatId : ""}`,
@@ -47,5 +46,15 @@ export async function getAllChats({ userId }) {
     throw new Error(
       error.response?.data?.message || "Failed to retrieve chats",
     );
+  }
+}
+
+export async function deleteChat({ chatId }) {
+  try {
+    const response = await apiClient.delete(`${CHAT_ENDPOINT}/${chatId}`);
+
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || "Failed to delete chat");
   }
 }

@@ -3,14 +3,35 @@
 @tailwind utilities;
 
 @layer utilities {
-  .tajwal {
-    @apply font-tajwal;
+  .baloo {
+    @apply font-baloo;
   }
+  .noto {
+    @apply font-noto;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f4f4f4;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e1e1e1cc;
+  border-radius: 100vh;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(198, 198, 198, 0.8);
 }
 
 html,
 body {
   height: 100%;
   margin: 0;
-  @apply tajwal;
+  @apply noto;
 }

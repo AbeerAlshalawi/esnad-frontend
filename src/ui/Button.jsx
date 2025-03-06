@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 function Button({ type = "button", children, disabled, ...props }) {
   const baseStyles =
-    "py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2";
+    "py-3 px-5 rounded-[2rem] focus:outline-none focus:ring-2 focus:ring-offset-2 font-bold text-opacity-90 hover:bg-opacity-80";
 
   const primaryStyles =
     "bg-primary text-white hover:bg-primary-dark focus:ring-primary-dark";

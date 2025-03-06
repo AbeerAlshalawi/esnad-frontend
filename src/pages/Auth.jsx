@@ -6,10 +6,12 @@ import SignupForm from "../features/auth/SignupForm";
 export default function Login({ isLogin }) {
   return (
     <div className="flex min-h-screen flex-row items-center justify-center">
-      <div className="hidden md:block">
+      <div className="z-0 -ml-20 hidden md:block">
         <img src={Illustration} alt="illustration" />
       </div>
-      <div className="w-1/2">{isLogin ? <LoginForm /> : <SignupForm />}</div>
+      <div className="z-10 basis-1/3">
+        {isLogin ? <LoginForm /> : <SignupForm />}
+      </div>
     </div>
   );
 }

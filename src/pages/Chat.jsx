@@ -1,49 +1,17 @@
-import Sidebar from "../components/Sidebar";
-import ChatArea from "../components/ChatArea";
-
-const messages = [
-  {
-    isBot: true,
-    title: "ملخص القضايا السابقة",
-    message:
-      "تتعلق القضية رقم 5377 لعام 1440 هـ بدعوى من مصنع ضد المدعى عليه بمطالبة بمستحقات مالية قدرها 503,768.41 ريال نتيجة بيع أوراق. حضر وكيل المدعية، بينما لم يحضر المدعى عليه رغم إبلاغه. أنكر المدعى عليه المستندات المقدمة وطلب مستندات إضافية، لكنه أقر لاحقًا بوجود مستحقات دون تحديد قيمتها بدقة. أُغلق باب المرافعة.",
-  },
-  {
-    isBot: false,
-    message: "معرفة نقاط القوة للسوابق لقضائية",
-  },
-  {
-    isBot: true,
-    title: "ملخص القضايا السابقة",
-    message:
-      "تتعلق القضية رقم 5377 لعام 1440 هـ بدعوى من مصنع ضد المدعى عليه بمطالبة بمستحقات مالية قدرها 503,768.41 ريال نتيجة بيع أوراق. حضر وكيل المدعية، بينما لم يحضر المدعى عليه رغم إبلاغه. أنكر المدعى عليه المستندات المقدمة وطلب مستندات إضافية، لكنه أقر لاحقًا بوجود مستحقات دون تحديد قيمتها بدقة. أُغلق باب المرافعة.",
-  },
-  {
-    isBot: false,
-    message: "معرفة نقاط القوة للسوابق لقضائية",
-  },
-  {
-    isBot: true,
-    title: "ملخص القضايا السابقة",
-    message:
-      "تتعلق القضية رقم 5377 لعام 1440 هـ بدعوى من مصنع ضد المدعى عليه بمطالبة بمستحقات مالية قدرها 503,768.41 ريال نتيجة بيع أوراق. حضر وكيل المدعية، بينما لم يحضر المدعى عليه رغم إبلاغه. أنكر المدعى عليه المستندات المقدمة وطلب مستندات إضافية، لكنه أقر لاحقًا بوجود مستحقات دون تحديد قيمتها بدقة. أُغلق باب المرافعة.",
-  },
-  {
-    isBot: false,
-    message: "معرفة نقاط القوة للسوابق لقضائية",
-  },
-];
+import Sidebar from "../features/chat/Sidebar";
+import ChatArea from "../features/chat/ChatArea";
+import { ChatProvider } from "../context/ChatProvider";
 
 export default function Chat() {
   return (
-    <div className="grid h-screen grid-cols-[26rem_1fr] bg-bg">
-      <div className="rounded-3xl px-8 py-14">
+    <ChatProvider>
+      <div className="grid h-screen grid-cols-[24rem_1fr] bg-bg">
         <Sidebar />
-      </div>
 
-      <main className="overflow-y-scroll py-14 pl-14 pr-2">
-        <ChatArea messages={messages} />
-      </main>
-    </div>
+        <main className="overflow-y-auto py-14 pl-14 pr-2">
+          <ChatArea />
+        </main>
+      </div>
+    </ChatProvider>
   );
 }
