@@ -2,7 +2,7 @@ import axios from "axios";
 
 const apiClient = axios.create({
   // AWS EC2 instance
-  baseURL: "http://13.60.190.145",
+  baseURL: import.meta.env.VITE_BACKEND_BASE_URL,
 });
 
 apiClient.interceptors.request.use((config) => {
